@@ -270,10 +270,11 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Employees</b></h2>
+						<h2>CRUD POST</h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a> <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+                    <a href="{{ route('posts.create') }}" class="btn btn-success"><i class="material-icons">&#xE147;</i> Add New</a>
+
 					</div>
 				</div>
 			</div>
@@ -293,24 +294,24 @@ $(document).ready(function(){
 					</tr>
 				</thead>
 				<tbody>
-    @foreach($posts as $post)
-    <tr>
-        <td>
-            <span class="custom-checkbox">
-                <input type="checkbox" id="checkbox{{ $post->id }}" name="options[]" value="{{ $post->id }}">
-                <label for="checkbox{{ $post->id }}"></label>
-            </span>
-        </td>
-        <td>{{ $post->id }}</td>
-        <td>{{ $post->title }}</td>
-        <td>{{ $post->content }}</td>
-        <td>
-            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
+                    @foreach($posts as $post)
+                    <tr>
+                        <td>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox{{ $post->id }}" name="options[]" value="{{ $post->id }}">
+                                <label for="checkbox{{ $post->id }}"></label>
+                            </span>
+                        </td>
+                        <td>{{ $post->id }}</td>
+                        <td>{{ $post->title }}</td>
+                        <td>{{ $post->content }}</td>
+                        <td>
+                            <a href="{{ route('posts.edit', $post->id) }}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="{{ route('posts.destroy', $post->id) }}" class="delete" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
 			</table>
 			<div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
@@ -329,37 +330,3 @@ $(document).ready(function(){
 </div>
 </body>
 </html>
-
-
-
-<div id="addEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Add a Post</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<form action="{{ route('posts.store') }}" method="post"> 
-						@csrf 					
-							<div class="form-group">
-								<label for="title">Title</label>
-								<input type="text" class="form-control" id="title" 
-								name="title" required>
-							</div>
-							<div class="form-group">
-								<label for="content">Content</label> 
-								<textarea class="form-control" id="content" name="content" 
-rows="3" required></textarea>
-							</div>
-												
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
